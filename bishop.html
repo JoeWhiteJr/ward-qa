@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ward Question Box, Bishop view</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;1,500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f7f4ec;
+    --ink: #24271f;
+    --green: #1d3a2d;
+    --green-deep: #142921;
+    --gold: #a8862f;
+    --gold-soft: #c9b070;
+    --ribbon: #8c2f39;
+    --muted: #6e6f64;
+    --line: #ddd6c4;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: "Public Sans", system-ui, sans-serif; min-height: 100vh; }
+
+  /* ---------- login ---------- */
+  #login {
+    max-width: 22rem; margin: 14vh auto 0; padding: 0 1.25rem;
+    display: none; text-align: center;
+  }
+  #login .eyebrow { font-size: .72rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+  #login h1 { font-family: "EB Garamond", Georgia, serif; font-weight: 600; color: var(--green); font-size: 1.9rem; margin: .6rem 0 1.4rem; }
+  #login input {
+    width: 100%; margin-bottom: .75rem; padding: .8rem .9rem;
+    font: 1rem "Public Sans", system-ui, sans-serif;
+    border: 1px solid var(--line); border-radius: 8px; background: #fffdf8;
+  }
+  #login button {
+    width: 100%; padding: .85rem; font: 600 1rem "Public Sans", sans-serif;
+    color: #fdfbf5; background: var(--green); border: 0; border-radius: 8px; cursor: pointer;
+  }
+  #login .err { color: var(--ribbon); font-size: .85rem; margin-top: .7rem; display: none; }
+
+  /* ---------- app ---------- */
+  #app { display: none; }
+  header {
+    background: var(--green); color: #f2eee2;
+    padding: .8rem 1.1rem;
+    display: flex; align-items: center; gap: .9rem; flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 5;
+  }
+  header .title { font-family: "EB Garamond", Georgia, serif; font-size: 1.15rem; font-weight: 600; }
+  .dot { width: .55rem; height: .55rem; border-radius: 50%; background: #d0a53c; }
+  .dot.live { background: #7fbf8e; }
+  .dot.down { background: #c96a6a; }
+  .status { font-size: .74rem; opacity: .85; display: flex; align-items: center; gap: .4rem; }
+  .spacer { flex: 1; }
+  .modes { display: flex; border: 1px solid rgba(242,238,226,.4); border-radius: 999px; overflow: hidden; }
+  .modes button {
+    padding: .38rem .95rem; font: 600 .8rem "Public Sans", sans-serif;
+    background: transparent; color: #f2eee2; border: 0; cursor: pointer;
+  }
+  .modes button.on { background: #f2eee2; color: var(--green); }
+  #signout { background: none; border: 0; color: #f2eee2; opacity: .7; font-size: .78rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 1.4rem 1.1rem 4rem; }
+  .tally { font-size: .8rem; color: var(--muted); margin-bottom: 1rem; }
+
+  .card {
+    background: #fffdf8; border: 1px solid var(--line); border-radius: 10px;
+    padding: 1.1rem 1.2rem; margin-bottom: .9rem;
+    box-shadow: 0 1px 2px rgba(29,58,45,.05);
+  }
+  .card.fresh { animation: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .card.fresh { animation: glow 2.2s ease-out; }
+    @keyframes glow { 0% { background: #f6ecd2; } 100% { background: #fffdf8; } }
+  }
+  .card .top { display: flex; align-items: baseline; gap: .7rem; margin-bottom: .45rem; }
+  .num {
+    font-size: .74rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--gold); white-space: nowrap;
+  }
+  .when { font-size: .74rem; color: var(--muted); }
+  .tag { font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-left: auto; }
+  .body { font-family: "EB Garamond", Georgia, serif; font-size: 1.25rem; line-height: 1.45; overflow-wrap: break-word; }
+  body.watch .body { font-size: 1.55rem; }
+  .card.answered { opacity: .55; }
+  .card.answered .body { text-decoration: none; }
+
+  .acts { margin-top: .8rem; display: flex; gap: .6rem; }
+  body.watch .acts { display: none; }
+  .acts button {
+    padding: .42rem .85rem; font: 600 .8rem "Public Sans", sans-serif;
+    border-radius: 6px; cursor: pointer; border: 1px solid var(--line); background: var(--paper); color: var(--green);
+  }
+  .acts button.primary { background: var(--green); border-color: var(--green); color: #fdfbf5; }
+  .acts button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  .hiddenhead {
+    margin: 2rem 0 .8rem; font-size: .78rem; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+  }
+  body.watch #hiddenwrap { display: none; }
+  #hiddenwrap .card { opacity: .6; }
+  #hiddenwrap .body { font-size: 1rem; }
+
+  .empty { text-align: center; color: var(--muted); padding: 4rem 1rem; }
+  .empty .big { font-family: "EB Garamond", Georgia, serif; font-size: 1.5rem; color: var(--green); margin-bottom: .5rem; }
+</style>
+</head>
+<body>
+
+<div id="login">
+  <div class="eyebrow">Ward question box</div>
+  <h1>Bishop view</h1>
+  <form id="loginform">
+    <input id="email" type="email" autocomplete="username" placeholder="Email" required>
+    <input id="pass" type="password" autocomplete="current-password" placeholder="Password" required>
+    <button type="submit">Sign in</button>
+  </form>
+  <p class="err" id="loginerr"></p>
+</div>
+
+<div id="app">
+  <header>
+    <span class="title">Ward Question Box</span>
+    <span class="status"><span class="dot" id="dot"></span><span id="statustext">connecting</span></span>
+    <span class="spacer"></span>
+    <div class="modes" role="tablist" aria-label="View mode">
+      <button id="mwatch" type="button">Watch</button>
+      <button id="mmod" type="button" class="on">Moderate</button>
+    </div>
+    <button id="signout" type="button">Sign out</button>
+  </header>
+  <div class="wrap">
+    <div class="tally" id="tally"></div>
+    <div id="list"></div>
+    <div id="hiddenwrap"></div>
+  </div>
+</div>
+
+<script src="vendor/supabase.js"></script>
+<script>
+  const SUPABASE_URL = "https://nxauxcflxzowhkonppgp.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_ZSfOpwj7iINZeCOs4O8AeQ_VFDRWohN";
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const $ = (id) => document.getElementById(id);
+  let questions = [];
+  let freshIds = new Set();
+  let pollTimer = null;
+
+  /* ---------- auth ---------- */
+  async function init() {
+    const { data: { session } } = await client.auth.getSession();
+    if (session) start(); else $("login").style.display = "block";
+  }
+
+  $("loginform").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const errEl = $("loginerr");
+    errEl.style.display = "none";
+    const { error } = await client.auth.signInWithPassword({
+      email: $("email").value.trim(),
+      password: $("pass").value,
+    });
+    if (error) {
+      errEl.textContent = "Sign-in failed. Check the email and password.";
+      errEl.style.display = "block";
+      return;
+    }
+    $("login").style.display = "none";
+    start();
+  });
+
+  $("signout").addEventListener("click", async () => {
+    await client.auth.signOut();
+    location.reload();
+  });
+
+  /* ---------- data ---------- */
+  async function refetch() {
+    const { data, error } = await client
+      .from("questions")
+      .select("id, body, status, created_at")
+      .order("created_at", { ascending: true });
+    if (error) { setStatus("down", "connection lost"); return; }
+    const known = new Set(questions.map(q => q.id));
+    if (questions.length) {
+      for (const q of data) if (!known.has(q.id)) freshIds.add(q.id);
+    }
+    questions = data;
+    render();
+  }
+
+  function setStatus(cls, text) {
+    $("dot").className = "dot " + cls;
+    $("statustext").textContent = text;
+  }
+
+  function subscribe() {
+    client.channel("questions-live")
+      .on("postgres_changes", { event: "*", schema: "public", table: "questions" }, () => refetch())
+      .subscribe((state) => {
+        if (state === "SUBSCRIBED") setStatus("live", "live");
+        else if (state === "CHANNEL_ERROR" || state === "TIMED_OUT") setStatus("down", "reconnecting");
+      });
+    pollTimer = setInterval(refetch, 20000); // safety net for flaky wifi
+  }
+
+  async function start() {
+    $("app").style.display = "block";
+    const { data: { session } } = await client.auth.getSession();
+    if (session) client.realtime.setAuth(session.access_token);
+    await refetch();
+    subscribe();
+  }
+
+  /* ---------- actions ---------- */
+  async function setQStatus(id, status) {
+    const { error } = await client.from("questions").update({ status }).eq("id", id);
+    if (!error) refetch();
+  }
+
+  /* ---------- render ---------- */
+  const fmt = new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit" });
+
+  function card(q, num, hidden) {
+    const el = document.createElement("div");
+    el.className = "card" + (q.status === "answered" ? " answered" : "") + (freshIds.has(q.id) ? " fresh" : "");
+    const tag = q.status === "answered" ? '<span class="tag">Answered</span>' :
+                q.status === "hidden" ? '<span class="tag">Hidden</span>' : "";
+    el.innerHTML =
+      '<div class="top"><span class="num">No. ' + num + '</span>' +
+      '<span class="when">' + fmt.format(new Date(q.created_at)) + "</span>" + tag + "</div>" +
+      '<div class="body"></div><div class="acts"></div>';
+    el.querySelector(".body").textContent = q.body;
+    const acts = el.querySelector(".acts");
+    const btn = (label, primary, fn) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = label;
+      if (primary) b.className = "primary";
+      b.addEventListener("click", fn);
+      acts.appendChild(b);
+    };
+    if (hidden) {
+      btn("Restore", false, () => setQStatus(q.id, "new"));
+    } else if (q.status === "new") {
+      btn("Mark answered", true, () => setQStatus(q.id, "answered"));
+      btn("Hide", false, () => setQStatus(q.id, "hidden"));
+    } else {
+      btn("Move back to new", false, () => setQStatus(q.id, "new"));
+    }
+    return el;
+  }
+
+  function render() {
+    const list = $("list");
+    const hiddenwrap = $("hiddenwrap");
+    list.innerHTML = "";
+    hiddenwrap.innerHTML = "";
+
+    const visible = [], hidden = [];
+    questions.forEach((q, i) => {
+      q._num = i + 1; // number by arrival order, stable even if some are hidden
+      (q.status === "hidden" ? hidden : visible).push(q);
+    });
+
+    const open = visible.filter(q => q.status === "new").length;
+    $("tally").textContent = questions.length === 0 ? "" :
+      open + " waiting, " + visible.filter(q => q.status === "answered").length + " answered" +
+      (hidden.length ? ", " + hidden.length + " hidden" : "");
+
+    if (questions.length === 0) {
+      list.innerHTML = '<div class="empty"><div class="big">No questions yet</div>Questions appear here the moment someone sends one.</div>';
+      return;
+    }
+
+    for (const q of [...visible].reverse()) list.appendChild(card(q, q._num, false));
+
+    if (hidden.length) {
+      const h = document.createElement("div");
+      h.className = "hiddenhead";
+      h.textContent = "Hidden (" + hidden.length + ")";
+      hiddenwrap.appendChild(h);
+      for (const q of [...hidden].reverse()) hiddenwrap.appendChild(card(q, q._num, true));
+    }
+    freshIds = new Set();
+  }
+
+  /* ---------- modes ---------- */
+  function setMode(watch) {
+    document.body.classList.toggle("watch", watch);
+    $("mwatch").classList.toggle("on", watch);
+    $("mmod").classList.toggle("on", !watch);
+    try { localStorage.setItem("wardqa-mode", watch ? "watch" : "mod"); } catch (e) {}
+  }
+  $("mwatch").addEventListener("click", () => setMode(true));
+  $("mmod").addEventListener("click", () => setMode(false));
+  try { if (localStorage.getItem("wardqa-mode") === "watch") setMode(true); } catch (e) {}
+
+  init();
+</script>
+</body>
+</html>
