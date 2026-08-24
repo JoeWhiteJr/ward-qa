@@ -26,7 +26,7 @@ The publishable key in the HTML is safe to expose by design; RLS is the security
 
 ## Credentials
 
-`.env` (gitignored, local only) holds the database password and the bishop sign-in. The bishop email is a plus-alias of Joe's Gmail, so password resets land in Joe's inbox.
+`.env` (gitignored, local only) holds the database password and the bishop sign-in. The bishop signs in with a plain username (mapped to an internal email); password resets are done via the Supabase admin API since the internal email is not a real inbox.
 
 ## Anonymity notes
 

@@ -114,7 +114,7 @@
   <div class="eyebrow">Ward question box</div>
   <h1>Bishop view</h1>
   <form id="loginform">
-    <input id="email" type="email" autocomplete="username" placeholder="Email" required>
+    <input id="email" type="text" autocomplete="username" placeholder="Username" required>
     <input id="pass" type="password" autocomplete="current-password" placeholder="Password" required>
     <button type="submit">Sign in</button>
   </form>
@@ -160,8 +160,10 @@
     e.preventDefault();
     const errEl = $("loginerr");
     errEl.style.display = "none";
+    const name = $("email").value.trim();
     const { error } = await client.auth.signInWithPassword({
-      email: $("email").value.trim(),
+      // usernames map to internal accounts; a full email still works as-is
+      email: name.includes("@") ? name : name.toLowerCase() + "@wardqa.local",
       password: $("pass").value,
     });
     if (error) {
