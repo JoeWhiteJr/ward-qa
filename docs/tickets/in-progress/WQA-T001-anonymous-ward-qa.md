@@ -17,9 +17,9 @@ Bishop and Sister Bonney are teaching a lesson Sunday Aug 30. Ward members shoul
 - [x] Public signups disabled; single bishop login can read and moderate
 - [x] Bishop view: live updates (realtime + polling fallback), Watch mode and Moderate mode (mark answered / hide / restore)
 - [x] QR code + TV slide pointing at the submit page
-- [ ] Deployed to GitHub Pages, end-to-end browser test passed
+- [x] Deployed to GitHub Pages, end-to-end browser test passed against the live site (realtime arrival 1.1s; answered/hide/restore verified; test rows cleared)
 - [ ] Joe verifies on his own phone, shares bishop credentials with Bishop Bonney
-- [ ] Test questions cleared before Sunday
+- [x] Test questions cleared (re-clear if more testing happens before Sunday)
 
 ## Retrospective
 
