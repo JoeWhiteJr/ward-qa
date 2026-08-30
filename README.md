@@ -39,3 +39,7 @@ The publishable key in the HTML is safe to expose by design; RLS is the security
   `delete from public.questions;` (as project owner; anon cannot delete)
 - **Costs:** $0. GitHub Pages free, Supabase free tier (2 active projects: Lyfe + this one).
 - **After the lesson:** the project can be paused from the Supabase dashboard to free the slot.
+
+## Backup (Google Form)
+
+If GitHub Pages or Supabase is down on the day, `tv-backup.html` and `qr-backup.png` point at an anonymous Google Form (no sign-in, no email collection). Responses appear live in the form's Responses tab in Joe's Google account.
