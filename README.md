@@ -1,6 +1,6 @@
 # Ward Question Box
 
-Anonymous Q&A for Bishop and Sister Bonney's lesson. Ward members scan a QR code and submit questions with no name, no account, and no sign-in. The Bonneys watch questions arrive live on a private view.
+Anonymous Q&A for ward events. Used for Bishop and Sister Bonney's lesson (2026-08-30) and An Evening with the Bishopric (2026-11-22). Ward members scan a QR code and submit questions with no name, no account, and no sign-in. The bishopric watches questions arrive live on a private view.
 
 Live site: https://joewhitejr.github.io/ward-qa/
 
@@ -9,8 +9,8 @@ Live site: https://joewhitejr.github.io/ward-qa/
 | Page | URL | Who |
 |---|---|---|
 | `index.html` | `/ward-qa/` | Ward members. Submit-only, anonymous. |
-| `bishop.html` | `/ward-qa/bishop.html` | Bishop Bonney. Password sign-in, live-updating list with Watch and Moderate modes. |
-| `tv.html` | `/ward-qa/tv.html` | The TV during the lesson. Full-screen QR slide. `qr.png` is also standalone for PowerPoint. |
+| `bishop.html` | `/ward-qa/bishop.html` | The bishopric (one shared login). Password sign-in, live-updating list with Watch and Moderate modes. |
+| `tv.html` | `/ward-qa/tv.html` | The TV during the event. Full-screen QR slide. `qr.png` is also standalone for PowerPoint. |
 
 ## Architecture
 
