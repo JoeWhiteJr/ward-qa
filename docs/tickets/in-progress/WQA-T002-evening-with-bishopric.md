@@ -22,9 +22,9 @@ YSA ward is holding An Evening with the Bishopric, Sunday 2026-11-22 at 7 pm. Sa
 ## Closeout (started 2026-11-24)
 
 - [x] Public pages say questions are closed
-- [ ] Questions exported (`python3 exports/export_questions.py`, local only)
-- [ ] Questions deleted from `public.questions`, only after the export is checked
-- [ ] Supabase project paused (Joe, dashboard)
+- [x] Questions exported 2026-11-24, 16 of 16 (`exports/ward-questions-2026-11-22`, local only)
+- [x] Questions deleted from `public.questions` (Joe, 2026-11-24, after checking the export)
+- [x] Supabase project paused (Joe, 2026-11-24; free plan; resumable from the dashboard until 2027-12-29)
 - [ ] Google Form closed and old responses cleared (Joe)
 
 ## Retrospective
