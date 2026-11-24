@@ -1,7 +1,7 @@
 ---
 id: WQA-T002
 title: Reuse question box for An Evening with the Bishopric (Nov 22)
-status: in-progress
+status: done
 created: 2026-11-18
 assigned-team: [PM/Builder (Claude), Joe]
 ---
@@ -15,8 +15,8 @@ YSA ward is holding An Evening with the Bishopric, Sunday 2026-11-22 at 7 pm. Sa
 - [x] Submit page, TV slide, and backup TV slide say "Ask the Bishopric" / event name + date; no Bonney or lesson copy left
 - [x] Supabase project `ward-qa` restored from pause (Joe, dashboard); anon insert 201, anon delete blocked
 - [x] August questions cleared (Joe, 2026-11-18) from `public.questions` (already archived in exports/ward-questions-2026-08-30.pdf)
-- [ ] Google Form backup retitled (Joe) and its old responses cleared (deferred by Joe 2026-11-18)
-- [ ] Merged + live on GitHub Pages; live E2E: submit on phone, appears in bishop view
+- [ ] Google Form backup retitled and old responses cleared: not done, form closed instead (see Closeout)
+- [x] Merged + live on GitHub Pages; used live at the event (16 submitted, 6 marked answered in bishop view)
 - [x] Bishopric has the bishop-view login (Joe sharing)
 
 ## Closeout (started 2026-11-24)
@@ -25,8 +25,8 @@ YSA ward is holding An Evening with the Bishopric, Sunday 2026-11-22 at 7 pm. Sa
 - [x] Questions exported 2026-11-24, 16 of 16 (`exports/ward-questions-2026-11-22`, local only)
 - [x] Questions deleted from `public.questions` (Joe, 2026-11-24, after checking the export)
 - [x] Supabase project paused (Joe, 2026-11-24; free plan; resumable from the dashboard until 2027-12-29)
-- [ ] Google Form closed and old responses cleared (Joe)
+- [x] Google Form closed (Joe, 2026-11-24; verified at the public link). Whether old responses were cleared was not checked
 
 ## Retrospective
 
-(fill after the event)
+Joe (2026-11-24): "It went fantastic!" 16 questions came in; 6 were marked answered in the bishop view. The backup Google Form from August was never retitled for this event.
