@@ -1,7 +1,7 @@
 ---
 id: WQA-T001
 title: Anonymous ward Q&A with live bishop view
-status: in-progress
+status: done
 created: 2026-08-24
 assigned-team: [PM/Builder (Claude), Joe]
 ---
@@ -23,4 +23,4 @@ Bishop and Sister Bonney are teaching a lesson Sunday Aug 30. Ward members shoul
 
 ## Retrospective
 
-(fill after the lesson)
+Used 2026-08-30; questions exported to exports/ward-questions-2026-08-30.pdf (local only). Reused for WQA-T002. Closed 2026-11-24. The phone-check box was never confirmed in writing, so it stays unticked.

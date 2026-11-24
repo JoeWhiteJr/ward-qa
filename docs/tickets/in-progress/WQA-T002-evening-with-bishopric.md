@@ -14,10 +14,18 @@ YSA ward is holding An Evening with the Bishopric, Sunday 2026-11-22 at 7 pm. Sa
 
 - [x] Submit page, TV slide, and backup TV slide say "Ask the Bishopric" / event name + date; no Bonney or lesson copy left
 - [x] Supabase project `ward-qa` restored from pause (Joe, dashboard); anon insert 201, anon delete blocked
-- [ ] August questions cleared from `public.questions` (already archived in exports/ward-questions-2026-08-30.pdf)
+- [x] August questions cleared (Joe, 2026-11-18) from `public.questions` (already archived in exports/ward-questions-2026-08-30.pdf)
 - [ ] Google Form backup retitled (Joe) and its old responses cleared (deferred by Joe 2026-11-18)
 - [ ] Merged + live on GitHub Pages; live E2E: submit on phone, appears in bishop view
 - [x] Bishopric has the bishop-view login (Joe sharing)
+
+## Closeout (started 2026-11-24)
+
+- [x] Public pages say questions are closed
+- [ ] Questions exported (`python3 exports/export_questions.py`, local only)
+- [ ] Questions deleted from `public.questions`, only after the export is checked
+- [ ] Supabase project paused (Joe, dashboard)
+- [ ] Google Form closed and old responses cleared (Joe)
 
 ## Retrospective
 

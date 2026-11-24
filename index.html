@@ -131,82 +131,11 @@
     <div class="eyebrow">An Evening with the Bishopric</div>
     <hr class="rule">
     <h1>Ask the Bishopric</h1>
-    <p class="lede">Sunday, Nov 22 at 7 pm. Ask now or during the evening.</p>
+    <p class="lede">Questions are closed. Thank you to everyone who asked.</p>
   </div>
 
-  <form id="form" novalidate>
-    <label for="q">Your question</label>
-    <textarea id="q" maxlength="500" required placeholder="Write anything you have wondered about..."></textarea>
-    <input class="hp" type="text" id="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <div class="meta"><span></span><span class="count" id="count">0 / 500</span></div>
-    <button id="send" type="submit">Send my question</button>
-    <p class="assure">This is anonymous.</p>
-    <p class="error" id="err"></p>
-  </form>
-
-  <div class="done" id="done">
-    <div class="seal">&#10003;</div>
-    <h2>Your question is in</h2>
-    <p>The bishopric will see it shortly.</p>
-    <button class="again" id="again" type="button">Ask another question</button>
-  </div>
 </main>
 <footer>Ward Question Box</footer>
 
-<script src="vendor/supabase.js"></script>
-<script>
-  const SUPABASE_URL = "https://nxauxcflxzowhkonppgp.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_ZSfOpwj7iINZeCOs4O8AeQ_VFDRWohN";
-  const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false } });
-
-  const form = document.getElementById("form");
-  const box = document.getElementById("q");
-  const count = document.getElementById("count");
-  const send = document.getElementById("send");
-  const err = document.getElementById("err");
-  const done = document.getElementById("done");
-
-  box.addEventListener("input", () => {
-    count.textContent = box.value.length + " / 500";
-    count.classList.toggle("over", box.value.length >= 500);
-  });
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    err.style.display = "none";
-    const body = box.value.trim();
-    if (body.length < 2) {
-      err.textContent = "Write a question first, then send it.";
-      err.style.display = "block";
-      return;
-    }
-    if (document.getElementById("website").value) { showDone(); return; }
-    send.disabled = true;
-    send.textContent = "Sending...";
-    const { error } = await client.from("questions").insert({ body });
-    send.disabled = false;
-    send.textContent = "Send my question";
-    if (error) {
-      err.textContent = "That didn't go through. Check your connection and try again.";
-      err.style.display = "block";
-      return;
-    }
-    showDone();
-  });
-
-  function showDone() {
-    form.style.display = "none";
-    done.style.display = "block";
-    done.classList.add("show");
-  }
-
-  document.getElementById("again").addEventListener("click", () => {
-    box.value = "";
-    count.textContent = "0 / 500";
-    done.style.display = "none";
-    form.style.display = "block";
-    box.focus();
-  });
-</script>
 </body>
 </html>
